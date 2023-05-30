@@ -1,0 +1,15 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.email.mapper.RegisterMapper">
+
+   
+   <insert id="insert" parameterType="com.example.email.model.RegisterModel">
+        INSERT INTO jwtemail (username, password, email, roles, status, keynumber) 
+       VALUES (#{username}, #{encodePass}, #{email}, 'USER', 'PENDDING', #{keynumber})
+    </insert>
+    <select id ="checkUsername" resultType="com.example.email.model.RegisterModel">
+    SELECT username
+	FROM jwtemail WHERE username = #{username}
+    </select>
+</mapper>

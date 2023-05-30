@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Đăng ký tài khoản</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<style>
+    h2 {
+        text-align: center;
+    }
+
+    .form {
+        width: 800px;
+        margin: 0 auto;
+    }
+
+    .input-container {
+        position: relative;
+        margin-bottom: 20px;
+        width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .input-container input {
+        padding: 10px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        width: 250px;
+        position: relative;
+    }
+
+    #usernameInput {
+        margin-left: 30px;
+    }
+
+    #passwordInput {
+        padding-right: 35px;
+        width: 223px;
+    }
+
+    #repasswordInput {
+        margin-left: 32px;
+        padding-right: 35px;
+        width: 223px;
+    }
+
+    .input-container input:last-child {
+        margin-left: 35px;
+    }
+
+    .input-container input:focus {
+        outline: none;
+        border-color: #ccc;
+    }
+
+    .input-container.error input {
+        border-color: #ff6b6b;
+    }
+
+    .input-container.success input {
+        border-color: #6a987b;
+    }
+
+    .validation-icon {
+        position: absolute;
+        top: 50%;
+        right: 28%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        color: #888;
+        pointer-events: none;
+    }
+
+    .input-container.error .validation-icon::before {
+        content: "X";
+        color: #ff6b6b;
+    }
+
+    .input-container.success .validation-icon::before {
+        content: "O";
+        color: #67bf5c;
+    }
+
+    button {
+        width: 150px;
+        height: 30px;
+        margin: 0 50%;
+        transform: translateX(-50%);
+        background-image: -webkit-linear-gradient(rgb(192, 219, 238) 1.01%, rgb(148, 164, 179), rgb(112, 119, 124) 100%);
+        border-color: white;
+    }
+
+    button:hover {
+        opacity: .8;
+    }
+
+
+
+    #password-input-wrapper, #repassword-input-wrapper {
+        position: relative;
+    }
+
+    #password-toggle-icon, #repassword-toggle-icon {
+        position: absolute;
+        top: 50%;
+        right: 23%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        display: none;
+    }
+</style>
+
+<body>
+    <h2>login</h2>
+
+</body>
+
+
+
+</html>

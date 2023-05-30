@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<meta charset="UTF-8" >
+	<title>Register</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<style>
+	h2 {
+		text-align: center;
+	}
+	.form {
+		width: 800px;
+		margin: 0 auto;
+	}
+	.input-container {
+		position: relative;
+		margin-bottom: 20px;
+		width: 800px;
+		margin: 0 auto;
+		text-align: center;
+	}
+	.input-container input {
+		padding: 10px;
+		border: 2px solid #ccc;
+		border-radius: 5px;
+		font-size: 16px;
+		width: 250px;
+		position: relative;
+	}
+	#usernameInput {
+		margin-left: 30px;
+	}
+	#passwordInput {
+		padding-right: 35px;
+		width: 223px;
+	}
+	#repasswordInput {
+		margin-left: 32px;
+		padding-right: 35px;
+		width: 223px;
+	}
+	.input-container input:last-child {
+		margin-left: 35px;
+	}
+	.input-container input:focus {
+		outline: none;
+		border-color: #ccc;
+	}
+	.input-container.error input {
+		border-color: #ff6b6b;
+	}
+	.input-container.success input {
+		border-color: #6a987b;
+	}
+	.validation-icon {
+		position: absolute;
+		top: 50%;
+		right: 28%;
+		transform: translateY(-50%);
+		font-size: 18px;
+		color: #888;
+		pointer-events: none;
+	}
+	.input-container.error .validation-icon::before {
+		content: "X";
+		color: #ff6b6b;
+	}
+	.input-container.success .validation-icon::before {
+		content: "O";
+		color: #67bf5c;
+	}
+	button {
+		width: 150px;
+		height: 30px;
+		margin: 0 50%;
+		transform: translateX(-50%);
+		background-image: -webkit-linear-gradient(rgb(192, 219, 238) 1.01%, rgb(148, 164, 179), rgb(112, 119, 124) 100%);
+		border-color: white;
+	}
+	button:hover {
+		opacity: .8;
+	}
+	#password-input-wrapper,
+	#repassword-input-wrapper {
+		position: relative;
+	}
+
+	#password-toggle-icon,
+	#repassword-toggle-icon {
+		position: absolute;
+		top: 50%;
+		right: 23%;
+		transform: translateY(-50%);
+		cursor: pointer;
+		display: none;
+	}
+	#msg{
+		text-align: center;
+		color: red;
+	}
+</style>
+<body>
+	<h2>Register</h2>
+		<div th:if="${msg}" id ="msg">
+			<p th:text="${msg}" ></p>
+		</div>
+	<form action="/register" method="post" class="form">
+		<div class="input-container">
+			<label>ユーザ:</label>
+			<input type="text" name="username" id="usernameInput">
+			<span class="validation-icon" id="usernameIcon"></span>
+		</div>
+		<br><br>
+		<div class="input-container">
+			<label>パスワード:</label>
+			<input type="password" name="password" id="passwordInput" oninput="checkInput(this)">
+			<span class="validation-icon" id="passwordIcon"></span>
+			<span id="password-toggle-icon" onclick="togglePasswordVisibility()">
+				<i class="fas fa-eye"></i>
+			</span>
+		</div>
+		<br>
+		<div class="input-container">
+			<label>再入力:</label>
+			<input type="password" name="repassword" id="repasswordInput" oninput="checkPass(this)">
+			<span class="validation-icon" id="passwordIcon"></span>
+			<span id="repassword-toggle-icon" onclick="toggleRePasswordVisibility()">
+				<i class="fas fa-eye"></i>
+			</span>
+		</div>
+		<br><br>
+		<div class="input-container">
+			<label>Email:</label>
+			<input type="email" name="email" id="emailInput">
+		</div>
+		<br><br>
+		<button type="submit">新規登録</button>
+	</form>
+</body>
+<script>
+	function checkInput(inputElement) {
+		var inputValue = inputElement.value;
+		var iconElement = inputElement.nextElementSibling;
+		var element = document.getElementById("password-toggle-icon");
+		var regex = /^[a-zA-Z0-9]*$/;
+		if (inputValue.length <= 1) {
+			element.style.display = "block";
+		}
+
+
+
+
+
+		if (inputValue.length == 0) {
+			element.style.display = "none";
+			inputElement.parentElement.classList.remove("error");
+			inputElement.parentElement.classList.remove("success");
+
+		}
+		else if (inputValue.length < 6 || !regex.test(inputValue)) {
+			inputElement.parentElement.classList.add("error");
+			inputElement.parentElement.classList.remove("success");
+			iconElement.textContent = "";
+		} else {
+			inputElement.parentElement.classList.add("success");
+			inputElement.parentElement.classList.remove("error");
+			iconElement.textContent = "";
+		}
+
+
+	}
+</script>
+<script>
+	function checkPass(inputElement) {
+		var inputValue = inputElement.value;
+		var passwordInput = document.getElementById("passwordInput");
+		var repasswordInput = document.getElementById("repasswordInput");
+		var passwordMatch = passwordInput.value === repasswordInput.value;
+		var element = document.getElementById("repassword-toggle-icon");
+		var regex = /^[a-zA-Z0-9]*$/;
+		if (inputValue.length <= 1) {
+			element.style.display = "block";
+		}
+
+
+
+
+		if (inputValue.length == 0) {
+			element.style.display = "none";
+			inputElement.parentElement.classList.remove("error");
+			inputElement.parentElement.classList.remove("success");
+
+		}
+		else if (inputValue.length < 6 || !passwordMatch || !regex.test(inputValue)) {
+			inputElement.parentElement.classList.add("error");
+			inputElement.parentElement.classList.remove("success");
+			iconElement.textContent = "";
+		} else {
+			inputElement.parentElement.classList.add("success");
+			inputElement.parentElement.classList.remove("error");
+			iconElement.textContent = "";
+		}
+	}
+</script>
+<script>
+	function togglePasswordVisibility() {
+		var passwordInput = document.getElementById("passwordInput");
+		var passwordToggleIcon = document.querySelector(".password-toggle-icon i");
+
+		if (passwordInput.type === "password") {
+			passwordInput.type = "text";
+			passwordToggleIcon.classList.remove("fa-eye");
+			passwordToggleIcon.classList.add("fa-eye-slash");
+		} else {
+			passwordInput.type = "password";
+			passwordToggleIcon.classList.remove("fa-eye-slash");
+			passwordToggleIcon.classList.add("fa-eye");
+		}
+	}
+
+
+	function toggleRePasswordVisibility() {
+		var passwordInput = document.getElementById("repasswordInput");
+		var passwordToggleIcon = document.querySelector(".repassword-toggle-icon i");
+
+		if (passwordInput.type === "password") {
+			passwordInput.type = "text";
+			passwordToggleIcon.classList.remove("fa-eye");
+			passwordToggleIcon.classList.add("fa-eye-slash");
+		} else {
+			passwordInput.type = "password";
+			passwordToggleIcon.classList.remove("fa-eye-slash");
+			passwordToggleIcon.classList.add("fa-eye");
+		}
+	}
+</script>
+</html>
